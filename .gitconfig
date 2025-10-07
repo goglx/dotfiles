@@ -27,3 +27,9 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[alias]
+	chore = "!f() { git checkout -b chore/$1 develop; }; f"
+	chore-finish = "!f() { \n  BRANCH=$(git rev-parse --abbrev-ref HEAD);\n  if [[ $BRANCH != chore/* ]]; then\n    echo \"Error: Not on a chore branch. Current branch: $BRANCH\";\n    exit 1;\n  fi;\n  CHORE=${BRANCH#chore/};\n  git checkout develop && \n  git merge --no-ff \"$BRANCH\" -m \"Merge chore: $CHORE\" &&\n  git branch -d \"$BRANCH\" &&\n  echo \"Successfully finished chore: $CHORE\";\n}; f"
+	fix = "!f() { git checkout -b fix/$1 develop; }; f"
+	fix-finish = "!f() { \n  BRANCH=$(git rev-parse --abbrev-ref HEAD);\n  if [[ $BRANCH != fix/* ]]; then\n    echo \"Error: Not on a fix branch. Current branch: $BRANCH\";\n    exit 1;\n  fi;\n  FIX=${BRANCH#fix/};\n  git checkout develop && \n  git merge --no-ff \"$BRANCH\" -m \"Merge fix: $FIX\" &&\n  git branch -d \"$BRANCH\" &&\n  echo \"Successfully finished fix: $FIX\";\n}; f"
+	addnew = !git add $(git ls-files --others --exclude-standard)
