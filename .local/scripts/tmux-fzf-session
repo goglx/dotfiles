@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# tmux-fzf-session: pick a tmux session with fzf and attach/switch
+
+sel=$(tmux list-sessions -F '#S' | fzf --prompt='tmux> ') || exit 0
+
+if [ -z "$sel" ]; then
+  exit 0
+fi
+
+if [ -n "$TMUX" ]; then
+  # inside tmux → switch client
+  tmux switch-client -t "$sel"
+else
+  # outside tmux → attach
+  tmux attach -t "$sel"
+fi
