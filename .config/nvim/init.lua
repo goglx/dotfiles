@@ -600,7 +600,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
 
-      -- because of setting wrong cwd when using tabs 
+      -- because of setting wrong cwd when using tabs
       vim.keymap.set('n', '<leader>sf', function()
         local root = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd()
         require('telescope.builtin').find_files { cwd = root }
@@ -634,7 +634,8 @@ require('lazy').setup({
 
       -- open file browser
       vim.keymap.set('n', '<leader>sb', function()
-        require('telescope').extensions.file_browser.file_browser()
+        local root = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd()
+        require('telescope').extensions.file_browser.file_browser { path = root }
       end, { desc = '[S]earch [B]rowser' })
 
       -- Shortcut for searching your Neovim configuration files
