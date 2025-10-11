@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+dir=$1
+if [[ -z "$1" ]]; then
+	dir=$HOME
+fi
+
+selected=$(fd . $dir -d 1 | fzf)
+if [[ -z "$selected" ]]; then
+	exit 0
+fi
+
+selected_name=$(basename $selected | tr ":,. " "____")
+
+switch_to() {
+    cd $selected
+	if [[ -z "$ZELLIJ" ]]; then
+        zellij a -c $selected_name
+	else
+		echo zellij  $selected_name
+	fi
+}
+
+switch_to
+
