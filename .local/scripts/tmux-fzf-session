@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # tmux-fzf-session: pick a tmux session with fzf and attach/switch
 
-sel=$(tmux list-sessions -F '#S' | fzf --prompt='tmux> ') || exit 0
+sel=$(tmux list-sessions -F '#S' | fzf --prompt='  ') || exit 0
 
 if [ -z "$sel" ]; then
   exit 0
