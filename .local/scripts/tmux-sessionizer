@@ -6,8 +6,8 @@ if [[ -z "$1" ]]; then
 fi
 
 #selected=$(find $dir -mindepth 1 -maxdepth 4 -type d | fzf)
-#selected=$(fd . $dir -d 1 -t d | fzf | sed "s:/$::")
-selected=$(fd . $dir -d 1 -t d | gum filter --limit 1 --no-sort --fuzzy --height 50 --prompt='⚡' | sed "s:/$::")
+selected=$(fd . $dir -d 1 -t d | fzf --prompt='tmux> ' | sed "s:/$::")
+#selected=$(fd . $dir -d 1 -t d | gum filter --limit 1 --no-sort --fuzzy --height 50 --prompt='⚡' | sed "s:/$::")
 if [[ -z "$selected" ]]; then
 	exit 0
 fi
