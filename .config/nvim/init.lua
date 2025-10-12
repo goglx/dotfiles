@@ -168,7 +168,7 @@ vim.o.scrolloff = 20
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
--- fat cursor
+-- fat cursor section
 vim.opt.guicursor = ''
 vim.opt.smarttab = true
 vim.opt.expandtab = true
@@ -177,6 +177,7 @@ vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
+-- if file is modifyed externdally autoreload buffer
 -- autoreload
 vim.api.nvim_create_augroup('autoread_check', { clear = true })
 
@@ -191,8 +192,9 @@ vim.api.nvim_create_autocmd('FileChangedShellPost', {
   group = 'autoread_check',
   callback = function()
     vim.notify('File changed on disk. Buffer reloaded!', vim.log.levels.WARN)
+    -- clear notificaiton
     vim.defer_fn(function()
-      vim.cmd('echo ""')
+      vim.cmd 'echo ""'
     end, 1000)
   end,
 })
